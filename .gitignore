@@ -1,1 +1,7 @@
 .env
+node_modules
+.next
+
+
+pr.md
+setup.ps1
