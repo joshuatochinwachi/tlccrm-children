@@ -83,7 +83,7 @@ function HomeVideoCard({ onClick }: { onClick: () => void }) {
       <div className="relative h-full w-full overflow-hidden bg-black flex items-center justify-center">
         <video
           ref={videoRef}
-          src="/videos/video_2026-07-21_15-43-28.mp4"
+          src="/videos/VID-20260721-WA0006.mp4"
           muted
           loop
           playsInline
@@ -449,7 +449,7 @@ export default function Home() {
               </h2>
             </div>
             <Link href="/gallery" className="font-body text-sm font-bold text-accent-gold hover:text-white transition-colors flex items-center space-x-1 shrink-0">
-              <span>View Full Gallery ({'12 items'})</span>
+              <span>View Full Gallery ({'10 items'})</span>
               <ArrowRight size={16} />
             </Link>
           </div>
@@ -459,7 +459,7 @@ export default function Home() {
             <HomeVideoCard
               onClick={() => setActivePreview({
                 type: "video",
-                url: "/videos/video_2026-07-21_15-43-28.mp4",
+                url: "/videos/VID-20260721-WA0006.mp4",
                 title: "Camp Praise & Worship Session",
                 category: "Worship Clip"
               })}
@@ -561,14 +561,6 @@ export default function Home() {
               </div>
             )}
 
-            <div className="mt-4 text-center text-white space-y-1">
-              <span className="text-[10px] font-mono font-bold text-accent-gold uppercase tracking-widest">
-                {activePreview.category}
-              </span>
-              <h4 className="font-display text-xl font-bold gold-gradient-text">
-                {activePreview.title}
-              </h4>
-            </div>
           </div>
         </div>
       )}

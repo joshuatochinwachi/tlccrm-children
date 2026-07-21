@@ -18,7 +18,7 @@ const mediaItems: MediaItem[] = [
   {
     id: "v1",
     type: "video",
-    url: "/videos/video_2026-07-21_15-43-28.mp4",
+    url: "/videos/VID-20260721-WA0006.mp4",
     title: "Camp Praise & Worship Session",
     description: "",
     category: "Worship",
@@ -26,7 +26,7 @@ const mediaItems: MediaItem[] = [
   {
     id: "v2",
     type: "video",
-    url: "/videos/video_2026-07-21_15-43-38.mp4",
+    url: "/videos/VID-20260721-WA0007_1.mp4",
     title: "Scripture Teaching & Lecture Highlights",
     description: "",
     category: "Teaching",
@@ -34,7 +34,7 @@ const mediaItems: MediaItem[] = [
   {
     id: "v3",
     type: "video",
-    url: "/videos/video_2026-07-21_15-43-55.mp4",
+    url: "/videos/VID-20260721-WA0008.mp4",
     title: "Children Special Choir Presentation",
     description: "",
     category: "Choir",
@@ -42,7 +42,7 @@ const mediaItems: MediaItem[] = [
   {
     id: "v4",
     type: "video",
-    url: "/videos/video_2026-07-21_15-43-59.mp4",
+    url: "/videos/VID-20260721-WA0009_1.mp4",
     title: "Camp Highlights & Closing Fellowship",
     description: "",
     category: "Fellowship",
