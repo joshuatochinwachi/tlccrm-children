@@ -21,7 +21,7 @@ const beats = [
     text: (
       <div className="text-center space-y-4">
         <span className="text-xs font-mono tracking-widest uppercase text-accent-gold block">Theme:</span>
-        <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-black gold-gradient-text uppercase leading-tight text-glow-gold">
+        <h2 className="font-display text-3xl sm:text-6xl md:text-7xl font-black gold-gradient-text uppercase leading-tight text-glow-gold">
           &quot;Godly Children in a Decaying World&quot;
         </h2>
         <span className="text-sm sm:text-base italic text-white/70 block">— Romans 12:2</span>
@@ -41,9 +41,25 @@ export default function Camp2026() {
   const beatsContainerRef = useRef<HTMLDivElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
   
+  const [isMobile, setIsMobile] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
+  // Detect mobile viewport & motion preference
+  useEffect(() => {
+    const checkViewport = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkViewport();
+    window.addEventListener("resize", checkViewport);
+
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    return () => window.removeEventListener("resize", checkViewport);
+  }, []);
+
+  // Countdown timer logic
   useEffect(() => {
     const campDate = new Date("2026-08-19T15:00:00").getTime();
 
@@ -69,11 +85,9 @@ export default function Camp2026() {
     return () => clearInterval(interval);
   }, []);
 
+  // GSAP desktop animation logic
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    if (mediaQuery.matches || !containerRef.current || !beatsContainerRef.current) return;
+    if (isMobile || prefersReducedMotion || !containerRef.current || !beatsContainerRef.current) return;
 
     const beatsElements = beatsContainerRef.current.children;
     const tl = gsap.timeline({
@@ -106,7 +120,7 @@ export default function Camp2026() {
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, []);
+  }, [isMobile, prefersReducedMotion]);
 
   const handleSkip = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -117,42 +131,70 @@ export default function Camp2026() {
     <div className="relative w-full text-white">
       
       {/* Skip Button */}
-      <div className="fixed top-24 left-6 z-40">
+      <div className="fixed top-24 left-4 sm:left-6 z-40">
         <button
           onClick={handleSkip}
-          className="rounded-full bg-accent-gold/20 border border-accent-gold/40 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-accent-gold backdrop-blur-md shadow-[0_0_15px_rgba(242,183,5,0.3)] hover:bg-accent-gold hover:text-primary transition-all duration-300 flex items-center space-x-1.5"
+          className="rounded-full bg-accent-gold/20 border border-accent-gold/40 px-3.5 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-accent-gold backdrop-blur-md shadow-[0_0_15px_rgba(242,183,5,0.3)] hover:bg-accent-gold hover:text-primary transition-all duration-300 flex items-center space-x-1.5"
         >
           <span>Skip to details</span>
           <ArrowDown size={14} />
         </button>
       </div>
 
-      {prefersReducedMotion ? (
-        <section className="px-4 py-24 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-16">
-          <div className="text-center space-y-6">
-            <h1 className="font-display text-4xl sm:text-6xl font-black gold-gradient-text uppercase leading-tight">
+      {/* MOBILE / REDUCED MOTION VIEW */}
+      {isMobile || prefersReducedMotion ? (
+        <section className="px-4 py-16 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-12">
+          {/* Mobile Announcement Banner */}
+          <div className="text-center space-y-4 pt-8">
+            <span className="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-mono font-bold bg-accent-gold/15 text-accent-gold border border-accent-gold/30">
+              <Sparkles size={14} className="animate-pulse" />
+              <span>THE LORD&apos;S CHOSEN CRM DELTA HQ</span>
+            </span>
+            
+            <h1 className="font-display text-3xl sm:text-5xl font-black gold-gradient-text uppercase leading-tight text-glow-gold">
               2026 Children Holiday Bible Camp
             </h1>
-            <p className="text-xl font-body max-w-2xl mx-auto text-white/80">
-              The Lord&apos;s Chosen Charismatic Revival Ministries, Delta State Headquarters Children&apos;s Department.
+            
+            <p className="text-sm sm:text-base font-body max-w-xl mx-auto text-white/80 leading-relaxed">
+              It&apos;s going to be a glorious time spending in the presence of God. Come and be blessed. Jesus is Lord!!!
             </p>
           </div>
           
-          <div className="glass-card border-accent-gold/30 p-8 rounded-3xl space-y-6">
-            <h3 className="font-display text-2xl font-bold text-accent-gold text-center">Announcement Details</h3>
-            <div className="space-y-4 font-body text-base text-white/80 text-center leading-relaxed">
-              <p>Theme: <strong>&quot;GODLY CHILDREN IN A DECAYING WORLD&quot;</strong> — Romans 12:2</p>
-              <p>Dates: Wednesday, August 19 – Saturday, August 22, 2026</p>
-              <p>Arrival: Wednesday 3:00 PM – 6:00 PM</p>
-              <p>It&apos;s going to be a glorious time spending in the presence of God. Come and be blessed. Jesus is Lord!!!</p>
+          {/* Announcement Card */}
+          <div className="glass-card border-accent-gold/30 p-6 sm:p-8 rounded-3xl space-y-6 shadow-2xl">
+            <div className="text-center space-y-2">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-accent-gold">FEATURED ANNOUNCEMENT</span>
+              <h3 className="font-display text-2xl font-bold gold-gradient-text">Announcement Details</h3>
+            </div>
+            
+            <div className="space-y-4 font-body text-sm sm:text-base text-white/85 text-center leading-relaxed">
+              <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
+                <span className="text-xs font-mono font-bold text-accent-green uppercase tracking-wider block">THEME</span>
+                <p className="font-display font-black text-lg gold-gradient-text uppercase">
+                  &quot;GODLY CHILDREN IN A DECAYING WORLD&quot;
+                </p>
+                <p className="text-xs italic text-white/60">— Romans 12:2</p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                <div className="bg-white/5 border border-white/10 p-3.5 rounded-xl">
+                  <span className="text-white/50 text-[10px] font-mono uppercase block">DATES</span>
+                  <strong>Wednesday, Aug 19 – Saturday, Aug 22, 2026</strong>
+                </div>
+                <div className="bg-white/5 border border-white/10 p-3.5 rounded-xl">
+                  <span className="text-white/50 text-[10px] font-mono uppercase block">ARRIVAL TIME</span>
+                  <strong>Wednesday 3:00 PM – 6:00 PM</strong>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       ) : (
+        /* DESKTOP PINNED CINEMATIC SCROLL REVEAL */
         <div ref={containerRef} className="relative h-[800vh] w-full">
           <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
             
-            <div className="relative z-10 w-full max-w-5xl px-6 text-center">
+            <div ref={beatsContainerRef} className="relative z-10 w-full max-w-5xl px-6 text-center">
               {beats.map((beat) => (
                 <div
                   key={beat.id}
@@ -189,7 +231,7 @@ export default function Camp2026() {
       )}
 
       {/* Static Camp Details & Countdown Block */}
-      <section ref={detailsRef} className="relative z-10 py-24 px-4 sm:px-6 lg:px-8 border-t border-white/10 bg-primary/80 backdrop-blur-xl">
+      <section ref={detailsRef} className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-t border-white/10 bg-primary/80 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
