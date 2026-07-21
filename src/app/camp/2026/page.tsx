@@ -43,6 +43,7 @@ export default function Camp2026() {
   
   const [isMobile, setIsMobile] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [showSkipButton, setShowSkipButton] = useState(true);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   // Detect mobile viewport & motion preference
@@ -57,6 +58,26 @@ export default function Camp2026() {
     setPrefersReducedMotion(mediaQuery.matches);
 
     return () => window.removeEventListener("resize", checkViewport);
+  }, []);
+
+  // Hide Skip button when details section comes into view or scrolled past
+  useEffect(() => {
+    if (!detailsRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // If details section is intersecting or above the viewport, hide the button
+        if (entry.isIntersecting || entry.boundingClientRect.top < window.innerHeight / 2) {
+          setShowSkipButton(false);
+        } else {
+          setShowSkipButton(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(detailsRef.current);
+    return () => observer.disconnect();
   }, []);
 
   // Countdown timer logic
@@ -131,7 +152,13 @@ export default function Camp2026() {
     <div className="relative w-full text-white">
       
       {/* Skip Button */}
-      <div className="fixed top-24 left-4 sm:left-6 z-40">
+      <div
+        className={`fixed top-24 left-4 sm:left-6 z-40 transition-all duration-500 ${
+          showSkipButton && !isMobile && !prefersReducedMotion
+            ? "opacity-100 pointer-events-auto translate-y-0"
+            : "opacity-0 pointer-events-none -translate-y-2"
+        }`}
+      >
         <button
           onClick={handleSkip}
           className="rounded-full bg-accent-gold/20 border border-accent-gold/40 px-3.5 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-accent-gold backdrop-blur-md shadow-[0_0_15px_rgba(242,183,5,0.3)] hover:bg-accent-gold hover:text-primary transition-all duration-300 flex items-center space-x-1.5"

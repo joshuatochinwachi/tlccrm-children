@@ -98,8 +98,8 @@ export default function Contact() {
                   <div className="h-9 w-9 rounded-lg bg-neutral-dark/30 border border-neutral-cream/5 flex items-center justify-center text-primary shrink-0">
                     <Mail size={16} className="text-accent-gold" />
                   </div>
-                  <a href="mailto:hello@tlccrmdeltachildrencamp.com" className="hover:text-accent-gold transition-colors break-all">
-                    hello@tlccrmdeltachildrencamp.com
+                  <a href="mailto:harrytendency@gmail.com" className="hover:text-accent-gold transition-colors break-all font-mono text-xs">
+                    harrytendency@gmail.com
                   </a>
                 </li>
               </ul>

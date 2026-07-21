@@ -117,8 +117,8 @@ export default function Footer() {
                 <div className="h-8 w-8 rounded-lg bg-accent-green/15 border border-accent-green/30 flex items-center justify-center text-accent-green shrink-0">
                   <Mail size={16} />
                 </div>
-                <a href="mailto:hello@tlccrmdeltachildrencamp.com" className="hover:text-accent-gold transition-colors break-all">
-                  hello@tlccrmdeltachildrencamp.com
+                <a href="mailto:harrytendency@gmail.com" className="hover:text-accent-gold transition-colors break-all font-mono text-xs">
+                  harrytendency@gmail.com
                 </a>
               </li>
               <li className="flex items-start space-x-3">
