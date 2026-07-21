@@ -1,64 +1,262 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, BookOpen, Heart, Users, Calendar, MapPin, Award, Sparkles, ShieldCheck } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
 
+/* ── Looping glitch text hook ── */
+function useGlitchText(target: string, delay = 0) {
+  const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$&*";
+  const [text, setText] = useState(() => target.replace(/[^ ]/g, CHARS[0]));
+
+  useEffect(() => {
+    let outerTimer: ReturnType<typeof setTimeout>;
+    let iv: ReturnType<typeof setInterval>;
+
+    function runGlitch(afterDelay: number) {
+      outerTimer = setTimeout(() => {
+        let frame = 0;
+        const maxFrames = 22;
+        iv = setInterval(() => {
+          if (frame < maxFrames) {
+            setText(
+              target
+                .split("")
+                .map((ch) => {
+                  if (ch === " ") return " ";
+                  const p = frame / maxFrames;
+                  return Math.random() < p ? ch : CHARS[Math.floor(Math.random() * CHARS.length)];
+                })
+                .join("")
+            );
+            frame++;
+          } else {
+            setText(target);
+            clearInterval(iv);
+            // Schedule next glitch cycle in ~4.5s
+            runGlitch(4500);
+          }
+        }, 45);
+      }, afterDelay);
+    }
+
+    runGlitch(delay);
+    return () => {
+      clearTimeout(outerTimer);
+      clearInterval(iv);
+    };
+  }, [target, delay]);
+
+  return { text };
+}
+
 export default function Home() {
+  const { text: glitchLine } = useGlitchText("RAISING GODLY CHILDREN", 300);
+  const { text: glitchMotto } = useGlitchText("CATCH THEM YOUNG FOR CHRIST", 900);
+
   return (
     <div className="relative w-full overflow-hidden text-white">
       
-      {/* 1. Hero Section with Glow Orbs */}
-      <section className="relative flex min-h-[90vh] flex-col justify-center px-4 py-24 sm:px-6 lg:px-8">
+      {/* 1. Hero Section */}
+      <section className="relative flex min-h-screen flex-col items-center justify-center px-4 py-20 sm:py-24 sm:px-6 lg:px-8 overflow-hidden" style={{ minHeight: "100svh" }}>
         
-        {/* Glow ambient background lights */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-gold/15 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-green/15 rounded-full blur-[140px] pointer-events-none" />
+        {/* Ambient glow orbs */}
+        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-accent-gold/10 rounded-full blur-[160px] pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent-green/10 rounded-full blur-[160px] pointer-events-none" />
 
-        <div className="mx-auto max-w-7xl w-full relative z-10">
-          <div className="max-w-3xl space-y-8">
-            
-            {/* Live Pulsing Badge & Motto */}
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="inline-flex items-center space-x-2 rounded-full border border-accent-gold/30 bg-primary-light/80 backdrop-blur-md px-4 py-2 text-xs font-mono font-bold tracking-wider text-accent-gold shadow-[0_0_20px_rgba(242,183,5,0.25)]">
-                <span className="h-2 w-2 rounded-full bg-accent-gold animate-ping" />
-                <span>OFFICIAL CHILDREN MINISTRY PORTAL</span>
-              </div>
-              <div className="inline-flex items-center space-x-2 rounded-full border border-accent-green/40 bg-accent-green/15 backdrop-blur-md px-4 py-2 text-xs font-mono font-bold tracking-wider text-accent-green">
-                <Sparkles size={14} className="animate-pulse" />
-                <span>MOTTO: CATCH THEM YOUNG FOR CHRIST</span>
-              </div>
+        {/* ── Atmospheric watermarks — hidden on mobile to avoid cluttering centered content ── */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.09] select-none hidden sm:block">
+          <div className="absolute top-[8%] left-[4%] font-mono text-[9px] text-white/80 rotate-[-4deg] space-y-1">
+            <div>TLCCRM · DELTA STATE HQ</div>
+            <div>REF: CHD-2026-001</div>
+          </div>
+          <div className="absolute top-[12%] right-[6%] font-mono text-[8px] text-white/70 rotate-[3deg] space-y-1">
+            <div>||||||||||||||||||||||</div>
+            <div>CAMP ID: BC-AUG-2026</div>
+          </div>
+          <div className="absolute top-[30%] left-[2%] font-mono text-[7px] text-white/60 rotate-[-2deg] space-y-1">
+            <div>2 TIM 3:15 — HOLY SCRIPTURES</div>
+            <div>PROVERBS 22:6 — TRAIN UP</div>
+          </div>
+          {/* "VERIFIED" stamp — only show on larger screens where it won't overlap hero text */}
+          <div className="absolute top-[22%] right-[18%] font-mono text-[10px] text-white/50 rotate-[7deg] hidden lg:block">
+            <div className="border border-white/30 px-2 py-1">VERIFIED</div>
+          </div>
+          <div className="absolute top-[48%] left-[3%] font-mono text-[8px] text-white/55 rotate-[4deg] space-y-0.5">
+            <div>HOLIDAY BIBLE CAMP</div>
+            <div>AUG 19 – 22 · WARRI</div>
+            <div>||||||||||||||​</div>
+          </div>
+          <div className="absolute top-[55%] right-[4%] font-mono text-[9px] text-white/50 rotate-[-5deg] space-y-1">
+            <div>REGISTRATION FEE: ₦4,000</div>
+            <div>STATUS: OPEN</div>
+          </div>
+          <div className="absolute top-[68%] left-[20%] font-mono text-[7px] text-white/40 rotate-[2deg] space-y-0.5 hidden md:block">
+            <div>ROMANS 12:2 · BE TRANSFORMED</div>
+            <div>PSALM 119:9 · STAY PURE</div>
+          </div>
+          <div className="absolute top-[75%] right-[20%] font-mono text-[8px] text-white/45 rotate-[-3deg] space-y-1 hidden md:block">
+            <div>CHILDREN DEPT · AUTHORIZED</div>
+            <div>||| |||| ||| |||| |||</div>
+          </div>
+          <div className="absolute top-[18%] left-[38%] w-16 h-16 border border-white/25 rounded-full flex items-center justify-center rotate-[-12deg] hidden lg:flex">
+            <div className="text-[6px] text-white/50 font-mono text-center leading-tight">
+              <div>MINISTRY</div>
+              <div>APPROVED</div>
+            </div>
+          </div>
+          <div className="absolute bottom-[15%] left-[40%] font-mono text-[6px] text-white/35 rotate-[1deg] space-y-0.5 hidden lg:block">
+            <div>SIGNATURE REQUIRED · TLCCRM</div>
+            <div>DELIVERY: IN PERSON · WARRI</div>
+          </div>
+          <div className="absolute bottom-[8%] right-[8%] font-mono text-[8px] text-white/45 rotate-[6deg] space-y-0.5">
+            <div>BATCH: AUG-2026-A</div>
+            <div>ZONE: DELTA-01</div>
+          </div>
+        </div>
+
+        {/* ── Core Hero content — centered ── */}
+        <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-5 sm:space-y-8">
+
+          {/* Logo with scan-ring + orbiting dots */}
+          <div className="relative flex items-center justify-center">
+            {/* Outer rotating dashed ring */}
+            <div
+              className="absolute w-32 h-32 sm:w-36 sm:h-36 rounded-full border border-dashed border-accent-gold/30"
+              style={{ animation: "spin 12s linear infinite", willChange: "transform" }}
+            />
+            {/* Middle pulsing glow ring */}
+            <div className="absolute w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-accent-gold/10 blur-xl animate-pulse" />
+            {/* Inner glow ring */}
+            <div className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-accent-gold/40 shadow-[0_0_30px_rgba(242,183,5,0.3)]" />
+
+            {/* Gold orbiting satellite dot (clockwise, 4s) */}
+            <div
+              className="absolute w-[128px] h-[128px] sm:w-[144px] sm:h-[144px]"
+              style={{ animation: "spin 4s linear infinite", willChange: "transform" }}
+            >
+              <div
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-accent-gold"
+                style={{ boxShadow: "0 0 10px 3px rgba(242,183,5,0.8)" }}
+              />
             </div>
 
-            {/* Title */}
-            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.08] text-white">
-              Raising <span className="gold-gradient-text text-glow-gold">Godly Children</span> <br className="hidden sm:inline" />
-              in a <span className="green-gradient-text text-glow-green">Decaying World</span>
+            {/* Green orbiting satellite dot (counter-clockwise, 7s) */}
+            <div
+              className="absolute w-[132px] h-[132px] sm:w-[148px] sm:h-[148px]"
+              style={{ animation: "spin 7s linear infinite reverse", willChange: "transform" }}
+            >
+              <div
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-accent-green"
+                style={{ boxShadow: "0 0 8px 3px rgba(46,139,87,0.8)" }}
+              />
+            </div>
+
+            {/* Logo */}
+            <Image
+              src="/logo.png"
+              alt="TLCCRM Children Department"
+              width={80}
+              height={80}
+              className="relative z-10 rounded-full object-cover ring-2 ring-accent-gold/60 shadow-[0_0_40px_rgba(242,183,5,0.5)]"
+              priority
+            />
+          </div>
+
+          {/* Glitch ministry tag — truncated on mobile to prevent overflow */}
+          <div className="font-mono text-[9px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.3em] uppercase text-accent-green/80 animate-pulse px-2 text-center leading-relaxed">
+            ✦ TLCCRM CHILDREN DEPT · DELTA HQ · WARRI ✦
+          </div>
+
+          {/* Glitch headline */}
+          <div className="space-y-2">
+            <h1
+              className="font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.05]"
+              style={{ fontVariantNumeric: "tabular-nums" }}
+            >
+              <span className="font-mono text-accent-gold tracking-[0.05em] drop-shadow-[0_0_30px_rgba(242,183,5,0.6)]">
+                {glitchLine}
+              </span>
             </h1>
+            <h2 className="font-display text-xl sm:text-2xl font-bold text-white/50 tracking-wide">
+              in a <span className="green-gradient-text">Decaying World</span>
+            </h2>
+          </div>
 
-            {/* Subtext */}
-            <p className="font-body text-base sm:text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl">
-              Welcome to the digital home of The Lord&apos;s Chosen Charismatic Revival Ministries (TLCCRM), Children&apos;s Department, Delta State Headquarters. We nurture children and students through faith, fellowship, and scripture.
-            </p>
+          {/* Motto glitch line */}
+          <div className="flex items-center gap-3">
+            <div className="h-px w-8 bg-accent-gold/40" />
+            <span className="font-mono text-xs tracking-[0.2em] text-accent-gold/70 uppercase">
+              {glitchMotto}
+            </span>
+            <div className="h-px w-8 bg-accent-gold/40" />
+          </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 pt-4">
-              <Link href="/camp/2026">
-                <MagneticButton className="w-full sm:w-auto rounded-full bg-gradient-to-r from-accent-gold via-amber-400 to-accent-gold px-8 py-4 text-base font-black uppercase tracking-wider text-primary shadow-[0_0_25px_rgba(242,183,5,0.4)] hover:shadow-[0_0_40px_rgba(242,183,5,0.7)] hover:scale-105 transition-all">
-                  Explore 2026 Bible Camp
-                  <ArrowRight size={18} className="ml-2 inline" />
-                </MagneticButton>
-              </Link>
-              
-              <Link href="/gallery" className="w-full sm:w-auto">
-                <button className="w-full sm:w-auto rounded-full border border-white/20 bg-white/5 backdrop-blur-md px-8 py-3.5 text-base font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10 hover:border-accent-gold hover:text-accent-gold">
-                  View Past Camps
-                </button>
-              </Link>
-            </div>
+          {/* Sub copy */}
+          <p className="font-body text-base sm:text-lg text-white/70 leading-relaxed max-w-2xl">
+            Welcome to the official digital home of The Lord&apos;s Chosen Charismatic Revival Ministries, Children&apos;s Department — nurturing children and students through faith, fellowship, and scripture.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 w-full">
+            <Link href="/camp/2026">
+              <MagneticButton className="rounded-full bg-gradient-to-r from-accent-gold via-amber-400 to-accent-gold px-8 py-4 text-sm font-black uppercase tracking-wider text-primary shadow-[0_0_25px_rgba(242,183,5,0.4)] hover:shadow-[0_0_45px_rgba(242,183,5,0.7)] hover:scale-105 transition-all">
+                Explore 2026 Bible Camp
+                <ArrowRight size={16} className="ml-2 inline" />
+              </MagneticButton>
+            </Link>
+            <Link href="/gallery">
+              <button className="rounded-full border border-white/20 bg-white/5 backdrop-blur-md px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10 hover:border-accent-gold hover:text-accent-gold">
+                View Past Camps
+              </button>
+            </Link>
+          </div>
+
+          {/* Scroll hint */}
+          <div className="flex flex-col items-center gap-2 pt-4 animate-bounce">
+            <span className="text-[10px] text-white/30 font-mono tracking-widest">SCROLL</span>
+            <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
           </div>
         </div>
       </section>
+
+      {/* ── Continuous Marquee Ticker ── */}
+      <div className="relative z-10 w-full overflow-hidden border-y border-accent-gold/20 bg-primary-light/60 backdrop-blur-md py-3">
+        {/* Fade masks on edges */}
+        <div className="absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-primary to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-primary to-transparent z-10 pointer-events-none" />
+
+        <div className="flex" style={{ animation: "marquee 30s linear infinite" }}>
+          {/* Duplicate the content for seamless loop */}
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex items-center shrink-0 gap-0">
+              {[
+                { text: "✦ HOLIDAY BIBLE CAMP 2026", gold: true },
+                { text: "AUG 19–22 · WARRI, DELTA STATE", gold: false },
+                { text: "✦ CATCH THEM YOUNG FOR CHRIST", gold: true },
+                { text: "REGISTRATION: ₦4,000", gold: false },
+                { text: "✦ TLCCRM CHILDREN DEPT", gold: true },
+                { text: "2 TIM 3:15 · TRAIN THEM IN THE WORD", gold: false },
+                { text: "✦ PROV 22:6 · TRAIN UP A CHILD", gold: true },
+                { text: "CAMP OFFICER APPLICATIONS OPEN", gold: false },
+                { text: "✦ FAITH · FELLOWSHIP · SCRIPTURE", gold: true },
+                { text: "DELTA STATE HQ · AUTHORIZED", gold: false },
+              ].map((item, i) => (
+                <span
+                  key={i}
+                  className={`font-mono text-[10px] tracking-[0.18em] uppercase whitespace-nowrap px-6 ${
+                    item.gold ? "text-accent-gold" : "text-white/50"
+                  }`}
+                >
+                  {item.text}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* 2. Core Mission / What We Do */}
       <section className="relative z-10 border-t border-white/10 bg-primary-light/40 backdrop-blur-xl py-24 px-4 sm:px-6 lg:px-8">

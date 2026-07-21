@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Mail, MapPin, Sparkles, Heart } from "lucide-react";
 
 export default function Footer() {
@@ -37,18 +38,30 @@ export default function Footer() {
           
           {/* Col 1: About Organization */}
           <div className="space-y-4">
-            <h4 className="font-display text-xl font-bold gold-gradient-text">
-              TLCCRM Children Dept
-            </h4>
+            {/* Logo + brand */}
+            <div className="flex items-center gap-3">
+              <Image
+                src="/logo.png"
+                alt="TLCCRM Children Department Logo"
+                width={52}
+                height={52}
+                className="rounded-full ring-2 ring-accent-gold/40 shadow-[0_0_16px_rgba(242,183,5,0.35)] object-cover"
+              />
+              <div>
+                <h4 className="font-display text-lg font-bold gold-gradient-text leading-tight">
+                  TLCCRM Children Dept
+                </h4>
+                <p className="text-[9px] font-mono tracking-widest uppercase text-accent-gold/80 font-bold">
+                  Catch Them Young for Christ
+                </p>
+              </div>
+            </div>
             <p className="font-body text-xs sm:text-sm text-white/70 leading-relaxed max-w-xs">
               Committed to raising godly children in a decaying world, nurturing faith, character, and spiritual growth in Jesus Christ.
             </p>
-            <div className="pt-2 text-[10px] font-mono tracking-widest uppercase text-accent-green font-bold flex items-center">
+            <div className="pt-1 text-[10px] font-mono tracking-widest uppercase text-accent-green font-bold flex items-center">
               <span className="h-1.5 w-1.5 rounded-full bg-accent-green mr-2 animate-ping" />
               Official Ministry of TLCCRM Delta State HQ
-            </div>
-            <div className="text-[10px] font-mono tracking-widest uppercase text-accent-gold font-bold">
-              Motto: Catch Them Young for Christ
             </div>
           </div>
 

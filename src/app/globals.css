@@ -99,6 +99,33 @@
   animation: shimmer 2.5s infinite;
 }
 
+/* Slow spin for logo dashed ring */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Mobile menu fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Infinite horizontal marquee ticker */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Floating particle rise */
+@keyframes floatUp {
+  0%   { transform: translateY(0)      translateX(0px);   opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { transform: translateY(-50vh)  translateX(12px); }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-100vh) translateX(-8px);  opacity: 0; }
+}
+
 /* Custom Cursor styling */
 .custom-cursor {
   width: 28px;
@@ -131,4 +158,12 @@ html.lenis, html.lenis body {
 }
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
+}
+
+/* ── Accessibility: gentle reduced motion — slows decorative animations, never stops them ── */
+@media (prefers-reduced-motion: reduce) {
+  /* Only slow down purely decorative spinning/floating — keep layout transitions */
+  .motion-reduce\:hidden {
+    display: none !important;
+  }
 }
