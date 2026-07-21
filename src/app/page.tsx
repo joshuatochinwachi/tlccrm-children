@@ -18,10 +18,16 @@ export default function Home() {
         <div className="mx-auto max-w-7xl w-full relative z-10">
           <div className="max-w-3xl space-y-8">
             
-            {/* Live Pulsing Badge */}
-            <div className="inline-flex items-center space-x-2 rounded-full border border-accent-gold/30 bg-primary-light/80 backdrop-blur-md px-4 py-2 text-xs font-mono font-bold tracking-wider text-accent-gold shadow-[0_0_20px_rgba(242,183,5,0.25)]">
-              <span className="h-2 w-2 rounded-full bg-accent-gold animate-ping" />
-              <span>OFFICIAL CHILDREN MINISTRY PORTAL</span>
+            {/* Live Pulsing Badge & Motto */}
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="inline-flex items-center space-x-2 rounded-full border border-accent-gold/30 bg-primary-light/80 backdrop-blur-md px-4 py-2 text-xs font-mono font-bold tracking-wider text-accent-gold shadow-[0_0_20px_rgba(242,183,5,0.25)]">
+                <span className="h-2 w-2 rounded-full bg-accent-gold animate-ping" />
+                <span>OFFICIAL CHILDREN MINISTRY PORTAL</span>
+              </div>
+              <div className="inline-flex items-center space-x-2 rounded-full border border-accent-green/40 bg-accent-green/15 backdrop-blur-md px-4 py-2 text-xs font-mono font-bold tracking-wider text-accent-green">
+                <Sparkles size={14} className="animate-pulse" />
+                <span>MOTTO: CATCH THEM YOUNG FOR CHRIST</span>
+              </div>
             </div>
 
             {/* Title */}

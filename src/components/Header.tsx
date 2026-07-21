@@ -35,7 +35,7 @@ export default function Header() {
             </span>
           </div>
           <span className="text-[10px] tracking-widest uppercase text-white/50 font-bold mt-0.5">
-            Warri, Delta State Headquarters
+            Warri, Delta State HQ | <span className="text-accent-gold font-mono">Motto: Catch Them Young for Christ</span>
           </span>
         </Link>
 

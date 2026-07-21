@@ -145,7 +145,7 @@ export default function Register() {
                   <div>
                     <h3 className="font-display text-base font-bold text-white group-hover:text-accent-gold transition-colors">Child Attendee</h3>
                     <p className="font-body text-xs text-white/65 mt-1 leading-relaxed">
-                      For children attending the camp. Features scripture teachings, bible stories, and fun fellowship activities. (₦2,000 fee)
+                      For children attending the camp. Features scripture teachings, bible stories, and fun fellowship activities. (₦4,000 fee)
                     </p>
                   </div>
                 </button>
@@ -161,7 +161,7 @@ export default function Register() {
                   <div>
                     <h3 className="font-display text-base font-bold text-white group-hover:text-accent-green transition-colors">Student Attendee</h3>
                     <p className="font-body text-xs text-white/65 mt-1 leading-relaxed">
-                      For older participants and teenagers attending to grow in faith, sound biblical wisdom, and Christian leadership. (₦2,000 fee)
+                      For older participants and teenagers attending to grow in faith, sound biblical wisdom, and Christian leadership. (₦4,000 fee)
                     </p>
                   </div>
                 </button>
@@ -352,7 +352,7 @@ export default function Register() {
                     <div className="space-y-3 font-body text-xs text-white/80">
                       <div className="flex justify-between border-b border-white/10 pb-2">
                         <span className="text-white/60">Amount Due:</span>
-                        <strong className="text-accent-gold font-bold text-sm">₦2,000</strong>
+                        <strong className="text-accent-gold font-bold text-sm">₦4,000</strong>
                       </div>
                       <div className="flex justify-between border-b border-white/10 pb-2">
                         <span className="text-white/60">Bank Name:</span>

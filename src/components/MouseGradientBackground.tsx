@@ -134,6 +134,7 @@ export default function MouseGradientBackground() {
         {/* Scattered atmospheric watermark typography */}
         <div className="absolute top-[8%] left-[5%] font-mono text-[9px] text-accent-gold/80 rotate-[-3deg] space-y-0.5">
           <div>TLCCRM DELTA HQ :: CHILDREN MINISTRY</div>
+          <div>MOTTO: CATCH THEM YOUNG FOR CHRIST</div>
           <div>EST. BIBLE CAMP PORTAL</div>
         </div>
 
@@ -160,7 +161,7 @@ export default function MouseGradientBackground() {
         </div>
 
         <div className="absolute top-[55%] right-[4%] font-mono text-[9px] text-accent-gold/70 rotate-[-2deg] space-y-0.5 text-right">
-          <div>REGISTRATION FEE: N2,000</div>
+          <div>REGISTRATION FEE: N4,000</div>
           <div>FIDELITY BANK: 4150052240</div>
         </div>
 

@@ -32,14 +32,19 @@ export default function About() {
             </p>
           </div>
 
-          <div className="lg:col-span-5 bg-primary text-neutral-cream rounded-3xl p-8 space-y-6 border border-accent-gold/20 shadow-xl">
-            <h3 className="font-display text-xl font-bold text-accent-gold">Our Vision Pillar</h3>
-            <blockquote className="border-l-4 border-accent-green pl-4 italic text-sm text-neutral-cream/80">
+          <div className="lg:col-span-5 glass-card border-accent-gold/30 rounded-3xl p-8 space-y-6 shadow-2xl">
+            <div className="space-y-1">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-accent-green">MINISTRY MOTTO</span>
+              <h3 className="font-display text-xl sm:text-2xl font-black gold-gradient-text uppercase">
+                &quot;Catch Them Young for Christ&quot;
+              </h3>
+            </div>
+            <blockquote className="border-l-4 border-accent-gold pl-4 italic text-xs sm:text-sm text-white/80 leading-relaxed">
               &quot;And that from a child thou hast known the holy scriptures, which are able to make thee wise unto salvation through faith which is in Christ Jesus.&quot;
             </blockquote>
-            <p className="text-xs text-right text-neutral-cream/40 font-bold font-body">— 2 Timothy 3:15</p>
-            <div className="pt-2 text-xs font-body text-neutral-cream/70 leading-relaxed">
-              Guided by the visual direction of our General Overseer, <strong>Pastor Lazarus Muoka</strong>, and the leadership of our Delta State Pastor, <strong>Pastor Nnamdi Ikechukwu</strong>, we raise standards of integrity and scriptural excellence.
+            <p className="text-xs text-right text-accent-gold font-bold font-mono">— 2 Timothy 3:15</p>
+            <div className="pt-2 text-xs font-body text-white/70 leading-relaxed border-t border-white/10">
+              Guided by the vision of our General Overseer, <strong>Pastor Lazarus Muoka</strong>, and the leadership of our Delta State Pastor, <strong>Pastor Nnamdi Ikechukwu</strong>, we raise standards of integrity and scriptural excellence.
             </div>
           </div>
         </div>

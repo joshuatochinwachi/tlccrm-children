@@ -24,7 +24,7 @@ const faqData: FAQItem[] = [
     ),
   },
   {
-    question: "Do Camp Officers pay the ₦2,000 registration fee?",
+    question: "Do Camp Officers pay the ₦4,000 registration fee?",
     answer: (
       <p>
         No. Camp Officer registration is completely free. Camp Officers register directly through the admin-contact path on WhatsApp without a payment step.
@@ -35,7 +35,7 @@ const faqData: FAQItem[] = [
     question: "How do I pay the registration fee for Children/Students?",
     answer: (
       <p>
-        After filling the short details form on the <strong>Register</strong> page, you will see bank account details (Fidelity Bank) and a reference code. Transfer the ₦2,000 fee, then click the &quot;Send Proof of Payment&quot; button to launch WhatsApp with pre-filled details. Paste your bank transfer receipt/screenshot into that chat to verify.
+        After filling the short details form on the <strong>Register</strong> page, you will see bank account details (Fidelity Bank) and a reference code. Transfer the ₦4,000 fee, then click the &quot;Send Proof of Payment&quot; button to launch WhatsApp with pre-filled details. Paste your bank transfer receipt/screenshot into that chat to verify.
       </p>
     ),
   },

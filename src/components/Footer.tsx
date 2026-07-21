@@ -47,6 +47,9 @@ export default function Footer() {
               <span className="h-1.5 w-1.5 rounded-full bg-accent-green mr-2 animate-ping" />
               Official Ministry of TLCCRM Delta State HQ
             </div>
+            <div className="text-[10px] font-mono tracking-widest uppercase text-accent-gold font-bold">
+              Motto: Catch Them Young for Christ
+            </div>
           </div>
 
           {/* Col 2: Navigation Links */}
