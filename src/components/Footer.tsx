@@ -83,7 +83,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/gallery" className="hover:text-accent-gold transition-colors duration-200">
-                  Past Camp Photo Memories
+                  Past Camp Memories
                 </Link>
               </li>
               <li>

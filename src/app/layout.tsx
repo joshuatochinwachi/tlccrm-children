@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -18,10 +18,15 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tlccrm-children.vercel.app"),
   title: "TLCCRM Delta Children Camp — Raising Godly Children",
   description: "Official portal for the TLCCRM Delta State Headquarters Children's Department Holiday Bible Camps. Nurturing faith, growth, and fellowship in Jesus.",
-  viewport: "width=device-width, initial-scale=1.0",
   icons: {
     icon: [
       { url: "/logo.png", type: "image/png" },
@@ -50,7 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
-      <body className="antialiased min-h-screen flex flex-col bg-neutral-cream text-primary selection:bg-accent-gold selection:text-primary">
+      <body className="antialiased min-h-screen flex flex-col bg-primary text-neutral-cream selection:bg-accent-gold selection:text-primary">
         <InteractivityProvider>
           <FloatingParticles />
           <Header />

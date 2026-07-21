@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
+import { ChevronDown, ChevronUp, HelpCircle, Sparkles } from "lucide-react";
 
 interface FAQItem {
   question: string;
@@ -90,19 +90,20 @@ export default function FAQ() {
   };
 
   return (
-    <section className="flex-grow bg-neutral-cream py-20 px-4 sm:px-6 lg:px-8 text-primary">
+    <section className="relative z-10 flex-grow py-20 px-4 sm:px-6 lg:px-8 text-white min-h-screen">
       <div className="mx-auto max-w-4xl">
         
         {/* Page Header */}
         <div className="text-center mb-16 space-y-4">
-          <span className="text-xs font-bold uppercase tracking-widest text-accent-green">
-            Have Questions?
+          <span className="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-mono font-bold bg-accent-gold/15 text-accent-gold border border-accent-gold/30">
+            <Sparkles size={14} className="animate-pulse" />
+            <span>HAVE QUESTIONS?</span>
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-black tracking-tight text-primary">
-            Frequently Asked Questions
+          <h1 className="font-display text-4xl sm:text-5xl font-black tracking-tight text-white">
+            Frequently Asked <span className="gold-gradient-text">Questions</span>
           </h1>
-          <div className="h-1 w-20 bg-accent-gold mx-auto rounded-full" />
-          <p className="font-body text-sm sm:text-base text-primary/70 leading-relaxed max-w-2xl mx-auto">
+          <div className="h-1 w-20 bg-accent-gold mx-auto rounded-full shadow-[0_0_10px_#F2B705]" />
+          <p className="font-body text-sm sm:text-base text-white/70 leading-relaxed max-w-2xl mx-auto">
             Find answers to common questions about eligibility, registration, payment steps, and requirements.
           </p>
         </div>
@@ -114,30 +115,30 @@ export default function FAQ() {
             return (
               <div
                 key={index}
-                className="bg-neutral-light border border-primary/5 rounded-2xl overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md"
+                className="glass-card border-white/10 rounded-2xl overflow-hidden shadow-xl transition-all duration-300"
               >
                 <button
                   onClick={() => toggleAccordion(index)}
-                  className="w-full flex items-center justify-between p-5 text-left font-display font-bold text-sm sm:text-base text-primary focus:outline-none hover:text-accent-gold transition-colors"
+                  className="w-full flex items-center justify-between p-5 text-left font-display font-bold text-sm sm:text-base text-white focus:outline-none hover:text-accent-gold transition-colors"
                 >
                   <span className="flex items-center pr-4">
-                    <HelpCircle size={18} className="text-accent-green mr-3 shrink-0" />
+                    <HelpCircle size={18} className="text-accent-gold mr-3 shrink-0" />
                     {item.question}
                   </span>
                   {isOpen ? (
-                    <ChevronUp size={18} className="text-primary shrink-0" />
+                    <ChevronUp size={18} className="text-accent-gold shrink-0" />
                   ) : (
-                    <ChevronDown size={18} className="text-primary shrink-0" />
+                    <ChevronDown size={18} className="text-white/60 shrink-0" />
                   )}
                 </button>
 
-                {/* Smooth Expandable Content Panel */}
+                {/* Expandable Content Panel */}
                 <div
                   className={`transition-all duration-300 ease-in-out ${
-                    isOpen ? "max-h-[300px] border-t border-primary/5 p-5" : "max-h-0 overflow-hidden"
+                    isOpen ? "max-h-[300px] border-t border-white/10 p-5 bg-primary-light/40" : "max-h-0 overflow-hidden"
                   }`}
                 >
-                  <div className="font-body text-xs sm:text-sm text-primary/75 leading-relaxed space-y-2">
+                  <div className="font-body text-xs sm:text-sm text-white/80 leading-relaxed space-y-2">
                     {item.answer}
                   </div>
                 </div>
@@ -147,15 +148,15 @@ export default function FAQ() {
         </div>
 
         {/* Contact fallback notice */}
-        <div className="mt-16 text-center bg-primary text-neutral-cream rounded-3xl p-8 border border-accent-gold/20 shadow-lg">
-          <h3 className="font-display text-lg font-bold text-accent-gold mb-2">
+        <div className="mt-16 text-center glass-card border-accent-gold/30 rounded-3xl p-8 shadow-2xl">
+          <h3 className="font-display text-lg font-bold gold-gradient-text mb-2">
             Still have questions?
           </h3>
-          <p className="font-body text-xs sm:text-sm text-neutral-cream/70 leading-relaxed mb-6 max-w-md mx-auto">
+          <p className="font-body text-xs sm:text-sm text-white/70 leading-relaxed mb-6 max-w-md mx-auto">
             If you need further clarification on lodging, food, or custom arrangements, feel free to call or message the admin directly.
           </p>
           <Link href="/contact">
-            <button className="rounded-full bg-accent-gold px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-primary hover:bg-neutral-cream hover:text-primary transition-all duration-300">
+            <button className="rounded-full bg-gradient-to-r from-accent-gold to-amber-400 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-primary shadow-[0_0_20px_rgba(242,183,5,0.4)] hover:shadow-[0_0_30px_rgba(242,183,5,0.7)] transition-all duration-300">
               Get Contact Details
             </button>
           </Link>

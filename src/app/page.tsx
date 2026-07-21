@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, BookOpen, Heart, Users, Calendar, MapPin, Award, Sparkles, ShieldCheck } from "lucide-react";
+import { ArrowRight, BookOpen, Heart, Users, Calendar, MapPin, Award, Sparkles, ShieldCheck, Play, X, Film, Image as ImageIcon } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
 
 /* ── Looping glitch text hook ── */
@@ -52,9 +52,61 @@ function useGlitchText(target: string, delay = 0) {
   return { text };
 }
 
+/* ── Home Video Card with Live Hover Preview & No Writeup ── */
+function HomeVideoCard({ onClick }: { onClick: () => void }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      setIsPlaying(false);
+    }
+  };
+
+  return (
+    <div
+      onClick={onClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onTouchStart={handleMouseEnter}
+      onTouchEnd={handleMouseLeave}
+      className="glass-card glass-card-hover group relative cursor-pointer overflow-hidden rounded-3xl border border-white/10 shadow-2xl flex flex-col h-72"
+    >
+      <div className="relative h-full w-full overflow-hidden bg-black flex items-center justify-center">
+        <video
+          ref={videoRef}
+          src="/videos/video_2026-07-21_15-43-28.mp4"
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="h-full w-full object-cover opacity-75 group-hover:opacity-100 transition-all duration-500 scale-100 group-hover:scale-105"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-dark via-transparent to-transparent z-10 opacity-70 group-hover:opacity-40 transition-opacity" />
+
+        <div className={`absolute inset-0 flex items-center justify-center z-20 transition-all duration-300 ${isPlaying ? "opacity-0 scale-90" : "opacity-100 scale-100"}`}>
+          <div className="h-16 w-16 rounded-full bg-accent-gold/25 border border-accent-gold/50 flex items-center justify-center text-accent-gold group-hover:bg-accent-gold group-hover:text-primary group-hover:scale-110 transition-all duration-300 shadow-[0_0_30px_rgba(242,183,5,0.4)]">
+            <Play size={28} className="ml-1 fill-current" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const { text: glitchLine } = useGlitchText("RAISING GODLY CHILDREN", 300);
   const { text: glitchMotto } = useGlitchText("CATCH THEM YOUNG FOR CHRIST", 900);
+  const [activePreview, setActivePreview] = useState<{ type: "image" | "video"; url: string; title: string; category: string } | null>(null);
 
   return (
     <div className="relative w-full overflow-hidden text-white">
@@ -228,7 +280,7 @@ export default function Home() {
         <div className="absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-primary to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-primary to-transparent z-10 pointer-events-none" />
 
-        <div className="flex" style={{ animation: "marquee 30s linear infinite" }}>
+        <div className="flex w-max hover:[animation-play-state:paused] cursor-pointer" style={{ animation: "marquee 20s linear infinite" }}>
           {/* Duplicate the content for seamless loop */}
           {[0, 1].map((copy) => (
             <div key={copy} className="flex items-center shrink-0 gap-0">
@@ -391,44 +443,135 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4">
             <div className="space-y-2">
-              <span className="text-xs font-mono font-bold tracking-widest uppercase text-accent-gold">PHOTO HIGHLIGHTS</span>
+              <span className="text-xs font-mono font-bold tracking-widest uppercase text-accent-gold">PHOTOS & VIDEO CLIPS</span>
               <h2 className="font-display text-3xl font-bold tracking-tight text-white">
                 Moments From Past Camps
               </h2>
             </div>
             <Link href="/gallery" className="font-body text-sm font-bold text-accent-gold hover:text-white transition-colors flex items-center space-x-1 shrink-0">
-              <span>View Full Gallery</span>
+              <span>View Full Gallery ({'12 items'})</span>
               <ArrowRight size={16} />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="glass-card glass-card-hover group relative h-72 overflow-hidden rounded-3xl p-6 flex flex-col justify-end">
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-dark via-transparent to-transparent opacity-80" />
-              <div className="relative z-10 space-y-1">
-                <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-accent-gold">Assembly Worship</span>
-                <h4 className="font-display text-lg font-bold text-white">Glorious Praise</h4>
+            {/* Card 1: Video Preview with Live Hover Play */}
+            <HomeVideoCard
+              onClick={() => setActivePreview({
+                type: "video",
+                url: "/videos/video_2026-07-21_15-43-28.mp4",
+                title: "Camp Praise & Worship Session",
+                category: "Worship Clip"
+              })}
+            />
+
+            {/* Card 2: Real Photo WA 0014 */}
+            <div
+              onClick={() => setActivePreview({
+                type: "image",
+                url: "/pictures/IMG-20260720-WA0014.jpg",
+                title: "Children & Camp Officers Group Photo",
+                category: "Group Assembly"
+              })}
+              className="glass-card glass-card-hover group relative h-72 overflow-hidden rounded-3xl p-6 flex flex-col justify-end cursor-pointer border border-white/10"
+            >
+              <Image
+                src="/pictures/IMG-20260720-WA0014.jpg"
+                alt="Children & Camp Officers Group Photo"
+                fill
+                sizes="(max-width: 640px) 100vw, 33vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-dark via-neutral-dark/30 to-transparent z-10 opacity-80" />
+              <div className="relative z-20 space-y-1">
+                <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-accent-gold">Group Assembly</span>
+                <h4 className="font-display text-lg font-bold text-white group-hover:text-accent-gold transition-colors">
+                  Campers & Officers
+                </h4>
               </div>
             </div>
 
-            <div className="glass-card glass-card-hover group relative h-72 overflow-hidden rounded-3xl p-6 flex flex-col justify-end">
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-dark via-transparent to-transparent opacity-80" />
-              <div className="relative z-10 space-y-1">
-                <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-accent-green">Scripture Study</span>
-                <h4 className="font-display text-lg font-bold text-white">Learning God&apos;s Word</h4>
-              </div>
-            </div>
-
-            <div className="glass-card glass-card-hover group relative h-72 overflow-hidden rounded-3xl p-6 flex flex-col justify-end sm:col-span-2 lg:col-span-1">
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-dark via-transparent to-transparent opacity-80" />
-              <div className="relative z-10 space-y-1">
-                <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-accent-gold">Recreation</span>
-                <h4 className="font-display text-lg font-bold text-white">Team Games & Fellowship</h4>
+            {/* Card 3: Real Photo WA 0016 */}
+            <div
+              onClick={() => setActivePreview({
+                type: "image",
+                url: "/pictures/IMG-20260720-WA0016.jpg",
+                title: "Joyful Campers & Youth Fellowship",
+                category: "Camp Fellowship"
+              })}
+              className="glass-card glass-card-hover group relative h-72 overflow-hidden rounded-3xl p-6 flex flex-col justify-end cursor-pointer border border-white/10 sm:col-span-2 lg:col-span-1"
+            >
+              <Image
+                src="/pictures/IMG-20260720-WA0016.jpg"
+                alt="Joyful Campers & Youth Fellowship"
+                fill
+                sizes="(max-width: 640px) 100vw, 33vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-dark via-neutral-dark/30 to-transparent z-10 opacity-80" />
+              <div className="relative z-20 space-y-1">
+                <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-accent-green">Camp Fellowship</span>
+                <h4 className="font-display text-lg font-bold text-white group-hover:text-accent-gold transition-colors">
+                  Joyful Victory Pose
+                </h4>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Homepage Quick Preview Modal */}
+      {activePreview && (
+        <div
+          onClick={() => setActivePreview(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-dark/95 p-4 sm:p-6 backdrop-blur-lg animate-[fadeIn_0.2s_ease-out]"
+        >
+          <button
+            onClick={() => setActivePreview(null)}
+            className="absolute top-6 right-6 z-50 rounded-full bg-white/10 border border-white/20 p-3 text-white hover:bg-accent-gold hover:text-primary transition-colors focus:outline-none"
+            aria-label="Close Preview"
+          >
+            <X size={24} />
+          </button>
+
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-4xl max-h-[85vh] w-full h-full flex flex-col justify-center items-center"
+          >
+            {activePreview.type === "image" ? (
+              <div className="relative w-full h-[60vh]">
+                <Image
+                  src={activePreview.url}
+                  alt={activePreview.title}
+                  fill
+                  sizes="100vw"
+                  className="object-contain"
+                />
+              </div>
+            ) : (
+              <div className="relative w-full max-h-[60vh] flex justify-center items-center">
+                <video
+                  src={activePreview.url}
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="auto"
+                  className="rounded-2xl max-w-full max-h-[60vh] border border-white/10 bg-black shadow-2xl"
+                />
+              </div>
+            )}
+
+            <div className="mt-4 text-center text-white space-y-1">
+              <span className="text-[10px] font-mono font-bold text-accent-gold uppercase tracking-widest">
+                {activePreview.category}
+              </span>
+              <h4 className="font-display text-xl font-bold gold-gradient-text">
+                {activePreview.title}
+              </h4>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
