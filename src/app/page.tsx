@@ -449,7 +449,7 @@ export default function Home() {
               </h2>
             </div>
             <Link href="/gallery" className="font-body text-sm font-bold text-accent-gold hover:text-white transition-colors flex items-center space-x-1 shrink-0">
-              <span>View Full Gallery ({'10 items'})</span>
+              <span>View Full Gallery ({'9 items'})</span>
               <ArrowRight size={16} />
             </Link>
           </div>

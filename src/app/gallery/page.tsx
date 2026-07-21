@@ -88,14 +88,6 @@ const mediaItems: MediaItem[] = [
     description: "Fun, outdoor team-building games designed to build fellowship and cooperation.",
     category: "Recreation",
   },
-  {
-    id: "i6",
-    type: "image",
-    url: "/images/camp_choir_singing.png",
-    title: "Children Choir Ministration",
-    description: "Our children's choir performing on stage in their custom green and yellow uniforms.",
-    category: "Choir",
-  },
 ];
 
 // Interactive Video Preview Card Component
