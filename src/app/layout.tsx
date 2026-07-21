@@ -29,10 +29,13 @@ export const metadata: Metadata = {
   description: "Official portal for the TLCCRM Delta State Headquarters Children's Department Holiday Bible Camps. Nurturing faith, growth, and fellowship in Jesus.",
   icons: {
     icon: [
-      { url: "/logo.png", type: "image/png" },
+      { url: "/favicon.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.png", sizes: "16x16", type: "image/png" },
     ],
-    apple: "/logo.png",
-    shortcut: "/logo.png",
+    apple: "/favicon.png",
+    shortcut: "/favicon.png",
   },
   openGraph: {
     title: "TLCCRM Delta Children Camp",
