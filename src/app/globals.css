@@ -21,6 +21,24 @@
     font-family: var(--font-body);
     overflow-x: hidden;
   }
+
+  /* Universal instant touch & click responsiveness */
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  [role="button"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:active,
+  a:active,
+  [role="button"]:active {
+    transform: scale(0.96);
+    transition: transform 0.05s ease-out;
+  }
 }
 
 /* Custom Scrollbar */

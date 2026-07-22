@@ -29,6 +29,7 @@ export default function Register() {
   const [category, setCategory] = useState<Category | null>(null);
   const [step, setStep] = useState<Step>("CATEGORY");
   const [refCode, setRefCode] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -65,6 +66,7 @@ export default function Register() {
   };
 
   const handleDetailsSubmit = async () => {
+    setIsSubmitting(true);
     let isValid = false;
     if (category === "OFFICER") {
       isValid = await trigger(["fullName", "churchBranch", "officerRole"]);
@@ -78,6 +80,7 @@ export default function Register() {
       }
       setStep("PAYMENT");
     }
+    setIsSubmitting(false);
   };
 
   const getWhatsAppLink = () => {
@@ -294,6 +297,7 @@ export default function Register() {
               <div className="pt-3">
                 <MagneticButton
                   type="submit"
+                  loading={isSubmitting}
                   className="w-full rounded-full bg-gradient-to-r from-accent-gold to-amber-500 py-4 text-xs font-black uppercase tracking-wider text-primary shadow-[0_0_20px_rgba(242,183,5,0.4)] transition-all"
                 >
                   Continue to Confirmation

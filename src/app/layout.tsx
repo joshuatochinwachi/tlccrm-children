@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import InteractivityProvider from "@/components/InteractivityProvider";
 import FloatingParticles from "@/components/FloatingParticles";
+import NavigationProgress from "@/components/NavigationProgress";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,7 +26,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tlccrm-children.vercel.app"),
+  metadataBase: new URL("https://tlccrmdeltachildrencamp.com"),
   title: "TLCCRM Delta Children Camp — Raising Godly Children",
   description: "Official portal for the TLCCRM Delta State Headquarters Children's Department Holiday Bible Camps. Nurturing faith, growth, and fellowship in Jesus.",
   icons: {
@@ -59,15 +61,20 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
       <body className="antialiased min-h-screen flex flex-col bg-primary text-neutral-cream selection:bg-accent-gold selection:text-primary">
-        <InteractivityProvider>
-          <FloatingParticles />
-          <Header />
-          <main className="flex-grow flex flex-col">
-            {children}
-          </main>
-          <Footer />
-        </InteractivityProvider>
+        <Suspense fallback={null}>
+          <NavigationProgress>
+            <InteractivityProvider>
+              <FloatingParticles />
+              <Header />
+              <main className="flex-grow flex flex-col">
+                {children}
+              </main>
+              <Footer />
+            </InteractivityProvider>
+          </NavigationProgress>
+        </Suspense>
       </body>
     </html>
   );
 }
+

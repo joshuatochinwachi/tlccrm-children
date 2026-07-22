@@ -30,7 +30,7 @@ export default function MouseGradientBackground() {
       };
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     let animationId: number;
 
