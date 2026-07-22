@@ -288,7 +288,7 @@ export default function Home() {
                 { text: "✦ HOLIDAY BIBLE CAMP 2026", gold: true },
                 { text: "AUG 19–22 · WARRI, DELTA STATE", gold: false },
                 { text: "✦ CATCH THEM YOUNG FOR CHRIST", gold: true },
-                { text: "REGISTRATION: ₦4,000", gold: false },
+                { text: "REGISTRATION: N4,000", gold: false },
                 { text: "✦ TLCCRM CHILDREN DEPT", gold: true },
                 { text: "2 TIM 3:15 · TRAIN THEM IN THE WORD", gold: false },
                 { text: "✦ PROV 22:6 · TRAIN UP A CHILD", gold: true },
