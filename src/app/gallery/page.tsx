@@ -196,7 +196,7 @@ export default function Gallery() {
   const activeMedia = activeMediaIndex !== null ? filteredItems[activeMediaIndex] : null;
 
   return (
-    <section className="relative z-10 py-20 px-4 sm:px-6 lg:px-8 text-white min-h-screen">
+    <section className="relative py-20 px-4 sm:px-6 lg:px-8 text-white min-h-screen">
       <div className="mx-auto max-w-7xl">
         
         {/* Page Header */}
@@ -302,35 +302,22 @@ export default function Gallery() {
         {activeMedia && (
           <div
             onClick={closeLightbox}
-            className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-neutral-dark/95 p-4 sm:p-6 backdrop-blur-lg animate-[fadeIn_0.2s_ease-out] overflow-y-auto"
+            className="fixed inset-0 z-[99999] flex items-center justify-center bg-neutral-dark/98 p-4 sm:p-6 backdrop-blur-2xl animate-[fadeIn_0.2s_ease-out]"
           >
-            {/* Top Control Bar */}
-            <div className="w-full flex items-center justify-between z-50 pt-2 px-2 sm:px-4">
-              {/* Prominent Return Back Button */}
-              <button
-                onClick={closeLightbox}
-                className="flex items-center space-x-2 rounded-full bg-accent-gold/20 border border-accent-gold/50 px-4 py-2.5 text-xs font-mono font-bold uppercase tracking-wider text-accent-gold hover:bg-accent-gold hover:text-primary transition-all duration-200 shadow-[0_0_20px_rgba(242,183,5,0.3)] active:scale-95 cursor-pointer"
-                aria-label="Return back to gallery"
-              >
-                <ArrowLeft size={18} />
-                <span>Return Back</span>
-              </button>
-
-              {/* Close Button */}
-              <button
-                onClick={closeLightbox}
-                className="flex items-center space-x-2 rounded-full bg-white/10 border border-white/20 px-3.5 py-2 text-white hover:bg-accent-gold hover:text-primary transition-all duration-200 focus:outline-none active:scale-95 cursor-pointer"
-                aria-label="Close Lightbox"
-              >
-                <X size={20} />
-                <span className="text-xs font-mono font-bold uppercase hidden sm:inline">Close</span>
-              </button>
-            </div>
+            {/* Single Top-Left Return Back Button */}
+            <button
+              onClick={closeLightbox}
+              className="fixed top-6 left-6 z-[100000] flex items-center space-x-2 rounded-full bg-accent-gold text-primary font-black px-5 py-2.5 text-xs font-mono uppercase tracking-wider hover:bg-amber-400 transition-all duration-200 shadow-[0_0_25px_rgba(242,183,5,0.6)] active:scale-95 cursor-pointer"
+              aria-label="Return back"
+            >
+              <ArrowLeft size={18} />
+              <span>Return Back</span>
+            </button>
 
             {/* Left Nav */}
             <button
               onClick={showPrev}
-              className="fixed left-4 top-1/2 -translate-y-1/2 z-50 rounded-full bg-white/10 border border-white/20 p-3.5 text-white hover:bg-accent-gold hover:text-primary transition-colors focus:outline-none hidden sm:block shadow-xl active:scale-95"
+              className="fixed left-4 top-1/2 -translate-y-1/2 z-[100000] rounded-full bg-white/10 border border-white/20 p-3.5 text-white hover:bg-accent-gold hover:text-primary transition-colors focus:outline-none hidden sm:block shadow-xl active:scale-95"
               aria-label="Previous Item"
             >
               <ChevronLeft size={24} />
@@ -339,7 +326,7 @@ export default function Gallery() {
             {/* Right Nav */}
             <button
               onClick={showNext}
-              className="fixed right-4 top-1/2 -translate-y-1/2 z-50 rounded-full bg-white/10 border border-white/20 p-3.5 text-white hover:bg-accent-gold hover:text-primary transition-colors focus:outline-none hidden sm:block shadow-xl active:scale-95"
+              className="fixed right-4 top-1/2 -translate-y-1/2 z-[100000] rounded-full bg-white/10 border border-white/20 p-3.5 text-white hover:bg-accent-gold hover:text-primary transition-colors focus:outline-none hidden sm:block shadow-xl active:scale-95"
               aria-label="Next Item"
             >
               <ChevronRight size={24} />
@@ -348,11 +335,11 @@ export default function Gallery() {
             {/* Main Media Content */}
             <div 
               onClick={(e) => e.stopPropagation()} 
-              className="relative max-w-5xl my-auto w-full flex flex-col justify-center items-center py-4"
+              className="relative max-w-5xl max-h-[85vh] w-full flex flex-col justify-center items-center"
             >
               {activeMedia.type === "image" ? (
                 <>
-                  <div className="relative w-full h-[55vh] sm:h-[65vh]">
+                  <div className="relative w-full h-[60vh] sm:h-[65vh]">
                     <Image
                       src={activeMedia.url}
                       alt={activeMedia.title}
@@ -377,39 +364,18 @@ export default function Gallery() {
                   </div>
                 </>
               ) : (
-                <div className="relative w-full max-h-[75vh] flex flex-col items-center justify-center space-y-3">
+                <div className="relative w-full max-h-[80vh] flex items-center justify-center">
                   <video
                     src={activeMedia.url}
                     controls
                     autoPlay
                     playsInline
                     preload="auto"
-                    className="rounded-2xl max-w-full max-h-[70vh] border border-white/10 bg-black shadow-2xl"
+                    className="rounded-2xl max-w-full max-h-[78vh] border border-white/10 bg-black shadow-2xl"
                   />
-                  <div className="text-center text-white space-y-1">
-                    <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-accent-green/20 text-accent-green border border-accent-green/30 uppercase">
-                      <Film size={10} />
-                      <span>{activeMedia.category} · VIDEO</span>
-                    </span>
-                    <h4 className="font-display text-base font-bold gold-gradient-text">
-                      {activeMedia.title}
-                    </h4>
-                  </div>
                 </div>
               )}
             </div>
-
-            {/* Bottom Return Back CTA Bar */}
-            <div className="w-full flex justify-center pb-4 z-50">
-              <button
-                onClick={closeLightbox}
-                className="flex items-center space-x-2 rounded-full bg-gradient-to-r from-accent-gold to-amber-500 px-6 py-3 text-xs font-mono font-black uppercase tracking-wider text-primary shadow-[0_0_25px_rgba(242,183,5,0.4)] hover:shadow-[0_0_35px_rgba(242,183,5,0.7)] transition-all active:scale-95 cursor-pointer"
-              >
-                <ArrowLeft size={16} />
-                <span>Return Back to Gallery</span>
-              </button>
-            </div>
-
           </div>
         )}
 
