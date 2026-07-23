@@ -224,7 +224,7 @@ The visual design system blends **spiritual sacredness** with a **modern sci-fi/
 Traditional registration systems rely on databases (PostgreSQL/Supabase) and backend servers. For this project, a **Zero-Backend Static Export (`output: 'export'`)** was deliberately chosen for the following critical reasons:
 
 1. **Zero Workload for Harrison (Admin):** Harrison already handles manual payment verification via bank alerts. A website database would create a secondary system he would have to check, log into, and cross-reference. Direct WhatsApp delivery merges website traffic directly into his existing workflow.
-2. **Instant Edge Delivery:** A static export compiles into plain HTML, CSS, JavaScript, and WebP images. It can be served from Vercel's global CDN edge in $< 50\text{ms}$, delivering maximum performance on mid-range Android devices in Warri operating on 3G/4G networks.
+2. **Instant Edge Delivery:** A static export compiles into plain HTML, CSS, JavaScript, and WebP images. It can be served from Vercel's global CDN edge in under 50ms, delivering maximum performance on mid-range Android devices in Warri operating on 3G/4G networks.
 3. **Zero Security & Data Liability:** Storing children's names, age, and phone numbers in a web database creates security vulnerability surfaces. With Zero-Backend, sensitive registration data never persists on any cloud server.
 4. **Zero Hosting Cost:** The website operates permanently on free-tier static edge hosting with zero database maintenance cost.
 
@@ -254,11 +254,16 @@ flowchart LR
 
 When a Child or Student attendee completes Step 2, the system executes an algorithmic reference generator:
 
-$$\text{CodePrefix} = \begin{cases} \text{"CH"} & \text{if Category} = \text{CHILD} \\ \text{"ST"} & \text{if Category} = \text{STUDENT} \\ \text{"CO"} & \text{if Category} = \text{OFFICER} \end{cases}$$
+```typescript
+// Category prefix selection
+const codePrefix = category === "CHILD" ? "CH" : category === "STUDENT" ? "ST" : "CO";
 
-$$\text{RandomID} = \lfloor 1000 + \text{Math.random()} \times 9000 \rfloor$$
+// Random 4-digit ID generator
+const randomID = Math.floor(1000 + Math.random() * 9000);
 
-$$\text{ReferenceCode} = \text{"TLCCRM-2026-"} + \text{CodePrefix} + \text{"-"} + \text{RandomID}$$
+// Reference Code synthesis
+const referenceCode = `TLCCRM-2026-${codePrefix}-${randomID}`;
+```
 
 *Example output:* `TLCCRM-2026-CH-7842`
 
@@ -266,7 +271,10 @@ $$\text{ReferenceCode} = \text{"TLCCRM-2026-"} + \text{CodePrefix} + \text{"-"} 
 
 The pre-filled WhatsApp link is dynamically synthesized:
 
-$$\text{WhatsAppURL} = \text{"https://wa.me/2347031563837?text="} + \text{encodeURIComponent}(\text{PayloadString})$$
+```typescript
+// Dynamic WhatsApp deep-link synthesis algorithm
+const whatsappURL = `https://wa.me/2347031563837?text=${encodeURIComponent(payloadString)}`;
+```
 
 ### 5. Media Previewer & Video Hover Engine
 
@@ -278,13 +286,18 @@ In `src/components/InteractivityProvider.tsx`:
 
 - **Lenis Smooth Scroll Easing:**
 
-$$f(t) = \min(1, \ 1.001 - 2^{-10t})$$
+```javascript
+// Exponential easing curve
+const easing = (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
+```
 
 - **Cursor Lerp Interpolation:**
 
-$$X_{\text{ball}} = X_{\text{ball}} + (X_{\text{mouse}} - X_{\text{ball}}) \times 0.15$$
-
-$$Y_{\text{ball}} = Y_{\text{ball}} + (Y_{\text{mouse}} - Y_{\text{ball}}) \times 0.15$$
+```javascript
+// Lerp spring smoothing (speed = 0.15)
+ballX += (mouseX - ballX) * 0.15;
+ballY += (mouseY - ballY) * 0.15;
+```
 
 ---
 
