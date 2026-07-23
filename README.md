@@ -11,7 +11,6 @@
 <p align="center">
   <a href="https://www.tlccrmdeltachildrencamp.com"><img src="https://img.shields.io/badge/🌐%20Website-tlccrmdeltachildrencamp.com-F2B705?style=for-the-badge&labelColor=0A0F1D" alt="Live Website" /></a>&nbsp;
   <a href="https://github.com/joshuatochinwachi/tlccrm-children"><img src="https://img.shields.io/badge/🐙%20GitHub-joshuatochinwachi%2Ftlccrm--children-F2B705?style=for-the-badge&labelColor=0A0F1D" alt="GitHub Repository" /></a>&nbsp;
-  <a href="./pr.md"><img src="https://img.shields.io/badge/📜%20PRD%20%26%20TRD-System%20Doc-10B981?style=for-the-badge&labelColor=0A0F1D" alt="PRD Specification" /></a>&nbsp;
   <a href="https://wa.me/2347031563837"><img src="https://img.shields.io/badge/💬%20WhatsApp-Admin%20Harrison-25D366?style=for-the-badge&labelColor=0A0F1D" alt="WhatsApp Admin" /></a>
 </p>
 
@@ -61,7 +60,6 @@
 - [🌐 Deployment & Hosting Topology](#-deployment--hosting-topology)
 - [⚙️ Configuration & Environment Reference](#️-configuration--environment-reference)
 - [🚀 Setup & Local Development](#-setup--local-development)
-- [📚 PRD & TRD Specification Reference](#-prd--trd-specification-reference)
 - [🗺️ Strategic Roadmap](#️-strategic-roadmap)
 
 ---
@@ -75,10 +73,10 @@ graph TD
     %% VISITOR ENTRY & UI LAYER
     subgraph ClientUI ["① User Entry & Micro-Interaction Layer"]
         VISITOR[Mobile / Desktop Visitor]
-        LENIS[Lenis Inertial Scroll Engine\ncomponents/InteractivityProvider.tsx]
-        CURSOR[Custom Lerp Physics Cursor\n2-stage spring dot + ring]
-        SPOTLIGHT[Mouse Gradient Spotlight\ncomponents/MouseGradientBackground.tsx]
-        GLITCH[Looping Glitch Scrambler\nuseGlitchText hook]
+        LENIS["Lenis Inertial Scroll Engine\ncomponents/InteractivityProvider.tsx"]
+        CURSOR["Custom Lerp Physics Cursor\n2-stage spring dot + ring"]
+        SPOTLIGHT["Mouse Gradient Spotlight\ncomponents/MouseGradientBackground.tsx"]
+        GLITCH["Looping Glitch Scrambler\nuseGlitchText hook"]
         VISITOR --> LENIS
         LENIS --> CURSOR
         CURSOR --> SPOTLIGHT
@@ -87,23 +85,23 @@ graph TD
 
     %% APP ROUTES
     subgraph Navigation ["② Page Navigation Ecosystem (Next.js 15 SSG)"]
-        HOME[Home Page /\nHero · Event Banner · Highlights]
-        CAMP[Camp 2026 Page /camp/2026\nEvent Copy · Location · Schedule]
-        REG[Registration Portal /register\n3-Step Multi-Category Flow]
-        GAL[Media Gallery /gallery\nFilterable Photos & Video Previews]
-        ABT[About Page /about\nMinistry Pillars & Leadership]
-        FAQ[FAQ Page /faq\nSearchable Collapsible Accordions]
-        CON[Contact Page /contact\nDirect Channels & Location Map]
+        HOME["Home Page /\nHero · Event Banner · Highlights"]
+        CAMP["Camp 2026 Page /camp/2026\nEvent Copy · Location · Schedule"]
+        REG["Registration Portal /register\n3-Step Multi-Category Flow"]
+        GAL["Media Gallery /gallery\nFilterable Photos & Video Previews"]
+        ABT["About Page /about\nMinistry Pillars & Leadership"]
+        FAQ["FAQ Page /faq\nSearchable Collapsible Accordions"]
+        CON["Contact Page /contact\nDirect Channels & Location Map"]
     end
     ClientUI --> Navigation
 
     %% REGISTRATION FORM & ENGINE
     subgraph RegEngine ["③ Client Registration Engine (Zero-Backend)"]
-        STEP1[Step 1: Category Selection\nCHILD | STUDENT | OFFICER]
-        FORM[Step 2: Details Input\nReact Hook Form + Zod Resolver]
-        GEN[Reference Generator\nTLCCRM-2026-XX-RAND]
-        STEP3[Step 3: Confirmation & Payment]
-        PAYMENT[Bank Transfer Instructions\nFidelity Bank · 4150052240]
+        STEP1["Step 1: Category Selection\nCHILD / STUDENT / OFFICER"]
+        FORM["Step 2: Details Input\nReact Hook Form + Zod Resolver"]
+        GEN["Reference Generator\nTLCCRM-2026-XX-RAND"]
+        STEP3["Step 3: Confirmation & Payment"]
+        PAYMENT["Bank Transfer Instructions\nFidelity Bank · 4150052240"]
         STEP1 --> FORM
         FORM --> GEN
         GEN --> STEP3
@@ -113,24 +111,24 @@ graph TD
 
     %% WHATSAPP DEEP LINK GENERATOR
     subgraph Handoff ["④ WhatsApp Deep-Link Construction"]
-        BUILDER[URL-Encoder Engine\ngetWhatsAppLink()]
-        ENCODED[Structured Payload String\nwa.me/2347031563837?text=...]
+        BUILDER["URL-Encoder Engine\ngetWhatsAppLink()"]
+        ENCODED["Structured Payload String\nwa.me/2347031563837?text=..."]
         RegEngine --> BUILDER
         BUILDER --> ENCODED
     end
 
     %% ADMIN HANDOFF
     subgraph Admin ["⑤ Ministry Admin Handoff"]
-        HARRISON[Admin Harrison WhatsApp\n+234 703 156 3837]
-        RECEIPT[Proof of Payment / Officer Inquiry\nDirect 1-on-1 Manual Reconciliation]
+        HARRISON["Admin Harrison WhatsApp\n+234 703 156 3837"]
+        RECEIPT["Proof of Payment / Officer Inquiry\nDirect 1-on-1 Manual Reconciliation"]
         ENCODED -->|Browser Navigation wa.me| HARRISON
         HARRISON --> RECEIPT
     end
 
     %% STATIC EDGE HOSTING
     subgraph Edge ["⑥ Vercel Edge Hosting"]
-        VERCEL[Vercel Global Edge CDN\nStatic Export HTML/JS/CSS]
-        WEBP[WebP Image Pipeline + Unoptimized Media]
+        VERCEL["Vercel Global Edge CDN\nStatic Export HTML/JS/CSS"]
+        WEBP["WebP Image Pipeline + Unoptimized Media"]
         VERCEL <--> WEBP
     end
     Edge <--> Navigation
@@ -236,20 +234,20 @@ Traditional registration systems rely on databases (PostgreSQL/Supabase) and bac
 flowchart LR
     Start([Visitor Enters Registration Portal]) --> CatSelect{Select Category}
     
-    CatSelect -->|Child Attendee| ChildForm[Input: Name, Age, Guardian Name, Phone, Branch]
-    CatSelect -->|Student Attendee| StudentForm[Input: Name, Age, Guardian Name, Phone, Branch]
-    CatSelect -->|Camp Officer| OfficerForm[Input: Full Name, Volunteer Role, Church Branch]
+    CatSelect -->|Child Attendee| ChildForm["Input: Name, Age, Guardian Name, Phone, Branch"]
+    CatSelect -->|Student Attendee| StudentForm["Input: Name, Age, Guardian Name, Phone, Branch"]
+    CatSelect -->|Camp Officer| OfficerForm["Input: Full Name, Volunteer Role, Church Branch"]
 
-    ChildForm --> GenRef1[Generate Reference: TLCCRM-2026-CH-XXXX]
-    StudentForm --> GenRef2[Generate Reference: TLCCRM-2026-ST-XXXX]
-    OfficerForm --> DirectWhatsApp[Direct WhatsApp Contact: wa.me/2347031563837]
+    ChildForm --> GenRef1["Generate Reference: TLCCRM-2026-CH-XXXX"]
+    StudentForm --> GenRef2["Generate Reference: TLCCRM-2026-ST-XXXX"]
+    OfficerForm --> DirectWhatsApp["Direct WhatsApp Contact: wa.me/2347031563837"]
 
-    GenRef1 --> PayBank1[Display Fidelity Bank Details: 4150052240\nFee: ₦4,000]
-    GenRef2 --> PayBank2[Display Fidelity Bank Details: 4150052240\nFee: ₦4,000]
+    GenRef1 --> PayBank1["Display Fidelity Bank Details: 4150052240\nFee: ₦4,000"]
+    GenRef2 --> PayBank2["Display Fidelity Bank Details: 4150052240\nFee: ₦4,000"]
 
-    PayBank1 --> Handoff1[WhatsApp Handoff: wa.me/2347031563837]
-    PayBank2 --> Handoff2[WhatsApp Handoff: wa.me/2347031563837]
-    DirectWhatsApp --> Handoff3[WhatsApp Handoff: wa.me/2347031563837]
+    PayBank1 --> Handoff1["WhatsApp Handoff: wa.me/2347031563837"]
+    PayBank2 --> Handoff2["WhatsApp Handoff: wa.me/2347031563837"]
+    DirectWhatsApp --> Handoff3["WhatsApp Handoff: wa.me/2347031563837"]
 ```
 
 ### 3. Reference Code Generation Math
@@ -429,7 +427,6 @@ tlccrm-children/
 ├── next.config.ts                      # Next.js static export config (output: 'export', unoptimized images)
 ├── package.json                        # Dependencies, scripts, and package metadata
 ├── postcss.config.mjs                  # PostCSS configuration for Tailwind CSS v4
-├── pr.md                               # Product Requirements Document (PRD) & Technical Requirements Document (TRD)
 ├── setup.ps1                           # PowerShell automation setup script for asset copying & npm install
 ├── tsconfig.json                       # Strict TypeScript compiler options
 └── vercel.json                         # Vercel deployment configuration (cleanUrls, trailingSlash)
@@ -536,12 +533,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 npm run build
 ```
 This command builds the static export files into the `out/` folder to verify production correctness.
-
----
-
-## 📚 PRD & TRD Specification Reference
-
-For full project background, organizational context, PRD, and TRD requirements, see [pr.md](file:///c:/Users/Jo$h/Desktop/Visual%20Studio%20Code/tlccrm-children/pr.md).
 
 ---
 
