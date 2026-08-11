@@ -161,7 +161,7 @@ export default function MouseGradientBackground() {
         </div>
 
         <div className="absolute top-[55%] right-[4%] font-mono text-[9px] text-accent-gold/70 rotate-[-2deg] space-y-0.5 text-right">
-          <div>REGISTRATION FEE: N4,000</div>
+          <div>REGISTRATION FEE: N2,700</div>
           <div>FIDELITY BANK: 4150052240</div>
         </div>
 

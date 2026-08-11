@@ -366,7 +366,7 @@ export default function Camp2026() {
                 <div className="space-y-4">
                   <div>
                     <h3 className="font-display text-lg font-bold text-accent-gold">Registration Fee</h3>
-                    <p className="font-body text-3xl font-black mt-1 gold-gradient-text">₦4,000</p>
+                    <p className="font-body text-3xl font-black mt-1 gold-gradient-text">₦2,700</p>
                     <p className="font-body text-xs text-white/60 mt-1">
                       Applicable to Children & Students. Camp Officers register free.
                     </p>

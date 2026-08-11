@@ -144,8 +144,8 @@ Because the system operates under a strict **Zero-Backend Architecture** (no dat
 
 | Category | Primary Target | Registration Fee | Step Sequence | Output Payload Format |
 |---|---|---|---|---|
-| **Child Attendee** | Children (Ages 0–12) | ₦4,000 | Category $\rightarrow$ Details $\rightarrow$ Reference $\rightarrow$ Payment $\rightarrow$ WhatsApp | Reference Code + Child Name + Age + Guardian Name & Phone + Branch + Payment Proof |
-| **Student Attendee** | Teenagers & Youth (Ages 13+) | ₦4,000 | Category $\rightarrow$ Details $\rightarrow$ Reference $\rightarrow$ Payment $\rightarrow$ WhatsApp | Reference Code + Student Name + Age + Guardian Name & Phone + Branch + Payment Proof |
+| **Child Attendee** | Children (Ages 0–12) | ₦2,700 | Category $\rightarrow$ Details $\rightarrow$ Reference $\rightarrow$ Payment $\rightarrow$ WhatsApp | Reference Code + Child Name + Age + Guardian Name & Phone + Branch + Payment Proof |
+| **Student Attendee** | Teenagers & Youth (Ages 13+) | ₦2,700 | Category $\rightarrow$ Details $\rightarrow$ Reference $\rightarrow$ Payment $\rightarrow$ WhatsApp | Reference Code + Student Name + Age + Guardian Name & Phone + Branch + Payment Proof |
 | **Camp Officer** | Volunteers & Staff Teachers | **FREE (₦0)** | Category $\rightarrow$ Role & Branch Details $\rightarrow$ Direct WhatsApp | Volunteer Name + Assigned Role + Church Branch + Admin Onboarding Request |
 
 ### 2. Formatted WhatsApp Payloads
@@ -242,8 +242,8 @@ flowchart LR
     StudentForm --> GenRef2["Generate Reference: TLCCRM-2026-ST-XXXX"]
     OfficerForm --> DirectWhatsApp["Direct WhatsApp Contact: wa.me/2347031563837"]
 
-    GenRef1 --> PayBank1["Display Fidelity Bank Details: 4150052240\nFee: ₦4,000"]
-    GenRef2 --> PayBank2["Display Fidelity Bank Details: 4150052240\nFee: ₦4,000"]
+    GenRef1 --> PayBank1["Display Fidelity Bank Details: 4150052240\nFee: ₦2,700"]
+    GenRef2 --> PayBank2["Display Fidelity Bank Details: 4150052240\nFee: ₦2,700"]
 
     PayBank1 --> Handoff1["WhatsApp Handoff: wa.me/2347031563837"]
     PayBank2 --> Handoff2["WhatsApp Handoff: wa.me/2347031563837"]
@@ -305,7 +305,7 @@ ballY += (mouseY - ballY) * 0.15;
 
 ### 1. Landing Page (`src/app/page.tsx`)
 - **Atmospheric Hero Section:** Ambient glowing orbs, looping glitch title scrambler (*"RAISING GODLY CHILDREN"* / *"CATCH THEM YOUNG FOR CHRIST"*), floating atmospheric watermarks (scripture verses, registration barcodes).
-- **Featured 2026 Camp Announcement Card:** Event date badge (Aug 19 – 22, 2026), location details, fee summary (₦4,000), quick CTA.
+- **Featured 2026 Camp Announcement Card:** Event date badge (Aug 19 – 22, 2026), location details, fee summary (₦2,700), quick CTA.
 - **Core Pillars Grid:** 4-card breakdown of camp values (*Spiritual Growth*, *Sound Doctrine*, *Safety & Care*, *Fun & Fellowship*).
 - **Interactive Video Previewer:** Live hover-to-play camp video preview triggering full-screen modal overlays.
 - **Dynamic Stats Counter:** Key figures (*1,000+ Children Impacted*, *15+ Years of Camps*, *100% Free Officer Service*).
@@ -346,8 +346,8 @@ stateDiagram-v2
 
     state CategorySelection {
         [*] --> SelectCategory
-        SelectCategory --> ChildCategory : Selected CHILD (₦4,000)
-        SelectCategory --> StudentCategory : Selected STUDENT (₦4,000)
+        SelectCategory --> ChildCategory : Selected CHILD (₦2,700)
+        SelectCategory --> StudentCategory : Selected STUDENT (₦2,700)
         SelectCategory --> OfficerCategory : Selected OFFICER (FREE)
     }
 
